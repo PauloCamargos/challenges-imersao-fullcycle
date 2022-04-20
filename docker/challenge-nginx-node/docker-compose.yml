@@ -5,8 +5,12 @@ services:
     build: 
       context: .
       dockerfile: node/Dockerfile
+    volumes:
+      - .:/app
+      - node_modules:/usr/src/node_modules
     depends_on:
       - db
+    container_name: app
     networks:
       - mysqlnetwork
 
@@ -14,12 +18,29 @@ services:
     build:
       context: nginx
       dockerfile: Dockerfile
+    container_name: nginx
     ports:
     - 80:80
     networks:
       - mysqlnetwork
 
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - mysqlnetwork
 
 networks:
   mysqlnetwork:
     driver: bridge
+
+volumes:
+  node_modules:

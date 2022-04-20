@@ -1,9 +1,6 @@
-FROM node:15
+FROM node:15-alpine
 
-WORKDIR /usr/src/app
-
-COPY node/app .
-
+WORKDIR /usr/src
+ENV PATH /usr/src/node_modules/.bin:$PATH
+COPY ./node/app/package*.json .
 RUN npm install
-
-CMD ["node", "index.js"]
