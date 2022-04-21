@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     container_name: app
     entrypoint: dockerize --wait tcp://db:3306 -timeout 20s node index.js
-    ports:
-      - "3000:3000"
     tty: true
     volumes:
       - ./node/app:/usr/src/app
