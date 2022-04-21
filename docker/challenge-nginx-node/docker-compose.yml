@@ -6,7 +6,7 @@ services:
       context: node
       dockerfile: Dockerfile
     container_name: app
-    command: "node index.js"
+    entrypoint: dockerize --wait tcp://db:3306 -timeout 20s node index.js
     ports:
       - "3000:3000"
     tty: true
@@ -15,7 +15,7 @@ services:
     depends_on:
       - db
     networks:
-      - mysqlnetwork
+      - fcmysqlnetwork
 
   nginx:
     build:
@@ -23,9 +23,9 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     ports:
-    - "80:80"
+    - "8080:80"
     networks:
-      - mysqlnetwork
+      - fcmysqlnetwork
 
   db:
     image: mysql:5.7
@@ -34,13 +34,16 @@ services:
     restart: always
     tty: true
     volumes:
-      - ./mysql:/var/lib/mysql
+      - fcmysqldata:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
     networks:
-      - mysqlnetwork
+      - fcmysqlnetwork
 
 networks:
-  mysqlnetwork:
+  fcmysqlnetwork:
     driver: bridge
+
+volumes:
+  fcmysqldata:

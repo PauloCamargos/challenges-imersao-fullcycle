@@ -12,17 +12,27 @@ const config = {
 }
 const connectionPool = mysql.createPool(config);
 
-app.get("/", (req, res) => {
-    let template = "<h1>Full cycle rocks!</h1><hr>"
+function createTable() {
+    connectionPool.getConnection(function(err, connection){
+        const sql = `CREATE TABLE people(id int not null auto_increment, name varchar(255), primary key(id))`
+        connection.query(sql)
+        connection.release()
+    })
+}
+
+function addPerson() {
     connectionPool.getConnection(function(err, connection) {
         const sql = `INSERT INTO people(name) values('Paulo')`
-        connection.connect()
         connection.query(sql)
         connection.release()
     });
+}
 
+app.get("/", (req, res) => {
+    let template = "<h1>Full cycle rocks!</h1><hr>"
+    addPerson()
     connectionPool.getConnection(function(err, connection) {
-        connection.query('SELECT `name` FROM `people`', function (error, results) {
+        connection.query('SELECT name FROM people', function (error, results) {
             if (error) {
                 console.log(error);
             }
@@ -38,5 +48,6 @@ app.get("/", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log("Running app");
+    addPerson()
+    createTable()
 })
