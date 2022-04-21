@@ -3,14 +3,17 @@ version: '3'
 services:
   app:
     build: 
-      context: .
-      dockerfile: node/Dockerfile
+      context: node
+      dockerfile: Dockerfile
+    container_name: app
+    command: "node index.js"
+    ports:
+      - "3000:3000"
+    tty: true
     volumes:
-      - .:/app
-      - node_modules:/usr/src/node_modules
+      - ./node/app:/usr/src/app
     depends_on:
       - db
-    container_name: app
     networks:
       - mysqlnetwork
 
@@ -20,7 +23,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     ports:
-    - 80:80
+    - "80:80"
     networks:
       - mysqlnetwork
 
@@ -41,6 +44,3 @@ services:
 networks:
   mysqlnetwork:
     driver: bridge
-
-volumes:
-  node_modules:
