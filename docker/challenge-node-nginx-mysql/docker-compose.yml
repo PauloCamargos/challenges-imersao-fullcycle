@@ -24,6 +24,8 @@ services:
     - "8080:80"
     networks:
       - fcmysqlnetwork
+    depends_on:
+      - app
 
   db:
     image: mysql:5.7
