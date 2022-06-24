@@ -1,14 +1,40 @@
 import OrderItem from "./order_item";
 
 export default class Order {
-    _id: string;
-    _customerId: string;  // id cause it's from another agg.
-    _items: OrderItem[];  // object cause it's from the same agg.
+    private _id: string;
+    private _customerId: string;  // id cause it's from another agg.
+    private _items: OrderItem[];  // object cause it's from the same agg.
+    private _total: number;
 
-    constructor(_id: string, _customerId: string, _items: OrderItem[]) {
-        this._id = _id
-        this._customerId = _customerId
-        this._items = _items
+    constructor(
+        _id: string, _customerId: string, _items: OrderItem[]
+    ) {
+        this._id = _id;
+        this._customerId = _customerId;
+        this._items = _items;
+        this._total = this.total();
+        this.validate();
+    }
+
+    validate() {
+        if (this._id.length === 0) {
+            throw Error("Id is required.");
+        }
+
+        if (this._customerId.length === 0) {
+            throw Error("Id is required.");
+        }
+
+        if (this._items.length === 0) {
+            throw Error("Item qnt must be greater than 0.");
+        }
+        if (this._items.some(el => el.quantity <= 0)) {
+            throw Error("Quantity must be grater than 0.");
+        }
+    }
+
+    total(): number {
+        return this._items.reduce((acc, item) => acc + item.price, 0);
     }
 
 }
