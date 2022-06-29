@@ -35,7 +35,15 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         );
     }
     async find(id: string): Promise<Customer> {
-        const customerModel = await CustomerModel.findOne({ where: { id } });
+        let customerModel;
+        try {
+            customerModel = await CustomerModel.findOne({
+                where: { id },
+                rejectOnEmpty: true,
+            });
+        } catch (error) {
+            throw new Error("Customer not found.");
+        }
 
         const customer = new Customer(
             customerModel!.id,
@@ -67,8 +75,10 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
                     customerModel!.zipcode,
                     customerModel!.city,
                 );
+                customer.addRewardPoints(customerModel.rewardPoints);
                 customer.setAddress(address);
-                customer.activate();
+                if (customerModel.active)
+                    customer.activate();
 
                 return customer;
             });
