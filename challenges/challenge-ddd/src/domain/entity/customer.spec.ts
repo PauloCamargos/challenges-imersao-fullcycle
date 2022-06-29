@@ -1,5 +1,5 @@
 import Address from "./address";
-import Customer from "./customer"
+import Customer from "./customer";
 
 describe("Customer unit tests", () => {
     it("shoud throw error when id is emtpy", () => {
@@ -48,4 +48,15 @@ describe("Customer unit tests", () => {
         customer.deactivate();
         expect(customer.isActive()).toBe(false);
     });
-})
+
+    it("should add raward points", () => {
+        const customer = new Customer("1", "customer 1");
+        expect(customer.rewardPoints).toBe(0);
+
+        customer.addRewardPoints(10);
+        expect(customer.rewardPoints).toBe(10);
+
+        customer.addRewardPoints(10);
+        expect(customer.rewardPoints).toBe(20);
+    });
+});

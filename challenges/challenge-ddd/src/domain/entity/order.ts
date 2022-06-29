@@ -7,11 +7,11 @@ export default class Order {
     private _total: number;
 
     constructor(
-        _id: string, _customerId: string, _items: OrderItem[]
+        id: string, customerId: string, items: OrderItem[]
     ) {
-        this._id = _id;
-        this._customerId = _customerId;
-        this._items = _items;
+        this._id = id;
+        this._customerId = customerId;
+        this._items = items;
         this._total = this.total();
         this.validate();
     }
@@ -28,6 +28,7 @@ export default class Order {
         if (this._items.length === 0) {
             throw Error("Item qnt must be greater than 0.");
         }
+
         if (this._items.some(el => el.quantity <= 0)) {
             throw Error("Quantity must be grater than 0.");
         }

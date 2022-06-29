@@ -3,11 +3,15 @@ export default class Product {
     private _name: string;
     private _price: number;
 
-    constructor(_id: string, _name: string, _price: number) {
-        this._id = _id;
-        this._name = _name;
-        this._price = _price;
+    constructor(id: string, name: string, price: number) {
+        this._id = id;
+        this._name = name;
+        this._price = price;
         this.validate();
+    }
+
+    get id(): string {
+        return this._id;
     }
 
     get name(): string {
