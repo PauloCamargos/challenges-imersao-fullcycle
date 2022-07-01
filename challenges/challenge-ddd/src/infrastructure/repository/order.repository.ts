@@ -24,13 +24,16 @@ export default class OrderRepository implements OrderRepositoryInterfae {
         );
     }
 
-    update(entity: Order): Promise<void> {
+    async update(entity: Order): Promise<void> {
+        // sadly, not so simple with sequelize.
         throw new Error("Method not implemented.");
     }
-    find(id: string): Promise<Order> {
+
+    async find(id: string): Promise<Order> {
         throw new Error("Method not implemented.");
     }
-    findAll(): Promise<Order[]> {
+
+    async findAll(): Promise<Order[]> {
         throw new Error("Method not implemented.");
     }
 }
