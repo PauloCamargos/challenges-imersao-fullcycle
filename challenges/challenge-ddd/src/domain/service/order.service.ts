@@ -10,12 +10,12 @@ export default class OrderService {
             throw new Error("Order must have at least one item.");
         }
         const order = new Order(uuid4(), customer.id, items);
-        customer.addRewardPoints(order.total() / 2);
+        customer.addRewardPoints(order.computeTotal() / 2);
 
         return order;
     }
 
     static total(orders: Order[]): number {
-        return orders.reduce((acc, order) => acc + order.total(), 0);
+        return orders.reduce((acc, order) => acc + order.computeTotal(), 0);
     }
 }

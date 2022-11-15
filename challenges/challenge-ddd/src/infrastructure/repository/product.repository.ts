@@ -23,6 +23,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
             }
         );
     }
+
     async find(id: string): Promise<Product> {
         const productModel = await ProductModel.findOne({ where: { id } });
 
@@ -31,8 +32,8 @@ export default class ProductRepository implements ProductRepositoryInterface {
             productModel!.name,
             productModel!.price,
         );
-
     }
+
     async findAll(): Promise<Product[]> {
         const productModels = await ProductModel.findAll();
         return productModels.map(

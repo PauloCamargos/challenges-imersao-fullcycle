@@ -16,6 +16,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
             rewardPoints: entity.rewardPoints,
         });
     }
+
     async update(entity: Customer): Promise<void> {
         await CustomerModel.update(
             {
@@ -34,6 +35,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
             }
         );
     }
+
     async find(id: string): Promise<Customer> {
         let customerModel;
         try {
@@ -59,8 +61,8 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         customer.activate();
 
         return customer;
-
     }
+
     async findAll(): Promise<Customer[]> {
         const customerModels = await CustomerModel.findAll();
         return customerModels.map(
@@ -83,5 +85,4 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
                 return customer;
             });
     }
-
 }
