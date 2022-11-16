@@ -25,12 +25,12 @@ describe("Order unit tests", () => {
         const item = new OrderItem("I1", "Item1", 100, "p1", 2);
         const order = new Order("O1", "C1", [item]);
 
-        expect(order.total).toBe(200);
+        expect(order.total).toBe(100);
 
         const item2 = new OrderItem("I2", "Item2", 200, "p1", 2);
         const order2 = new Order("O1", "C1", [item, item2]);
 
-        expect(order2.total).toBe(600);
+        expect(order2.total).toBe(300);
     });
 
     it("should throw error if the any item quantity is less or equal than 0", () => {
