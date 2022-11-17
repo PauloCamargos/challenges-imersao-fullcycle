@@ -39,7 +39,7 @@ describe("Order repository tests", () => {
         const customerRepository = new CustomerRepository();
         const customer = new Customer("1", "John Doe");
         const address = new Address("Second Avenue", 1, "123", "New York");
-        customer.setAddress(address);
+        customer.changeAddress(address);
         customer.activate();
         await customerRepository.create(customer);
 
@@ -78,7 +78,7 @@ describe("Order repository tests", () => {
         const customerRepository = new CustomerRepository();
         const customer = new Customer("1", "John Doe");
         const address = new Address("Second Avenue", 1, "123", "New York");
-        customer.setAddress(address);
+        customer.changeAddress(address);
         customer.activate();
         await customerRepository.create(customer);
 
@@ -100,7 +100,7 @@ describe("Order repository tests", () => {
 
         // updates
         const customer2 = new Customer("2", "Jane Doe");
-        customer2.setAddress(address);
+        customer2.changeAddress(address);
         customer2.activate();
         await customerRepository.create(customer2);
         order.changeCustomer(customer2.id);
@@ -149,7 +149,7 @@ describe("Order repository tests", () => {
         const customerRepository = new CustomerRepository();
         const customer = new Customer("1", "John Doe");
         const address = new Address("Second Avenue", 1, "123", "New York");
-        customer.setAddress(address);
+        customer.changeAddress(address);
         customer.activate();
         await customerRepository.create(customer);
 
@@ -180,9 +180,9 @@ describe("Order repository tests", () => {
         const customer1 = new Customer("1", "John Doe");
         const customer2 = new Customer("2", "Jane Doe");
         const address = new Address("Second Avenue", 1, "123", "New York");
-        customer1.setAddress(address);
+        customer1.changeAddress(address);
         customer1.activate();
-        customer2.setAddress(address);
+        customer2.changeAddress(address);
         customer2.activate();
         await customerRepository.create(customer1);
         await customerRepository.create(customer2);

@@ -1,3 +1,6 @@
+import EventDispatcherInterface from "../events/@shared/event-dispatcher.interface";
+import CustomerAddressChangedEvent from "../events/customer/customer-address-changed.event";
+import CustomerCreatedEvent from "../events/customer/customer-created.event";
 import Address from "./address";
 
 export default class Customer {
@@ -6,11 +9,19 @@ export default class Customer {
     private _address!: Address;
     private _active: boolean = false;
     private _rewardPoints: number = 0;
+    private _event_dispatcher: EventDispatcherInterface | null;
 
-    constructor(id: string, name: string) {
+    constructor(
+        id: string,
+        name: string,
+        event_dispatcher: EventDispatcherInterface | null = null,
+    ) {
         this._id = id;
         this._name = name;
         this.validate();
+        this._event_dispatcher = event_dispatcher;
+
+        this.fireCustomerCreatedEvent();
     }
 
     get name(): string {
@@ -59,11 +70,33 @@ export default class Customer {
         return this._active;
     }
 
-    setAddress(address: Address) {
+    changeAddress(address: Address) {
         this._address = address;
+        this.fireCustomerAddressChangedEvent();
     }
 
     addRewardPoints(points: number) {
         this._rewardPoints += points;
+    }
+    
+    fireCustomerAddressChangedEvent() {
+        if (!this._event_dispatcher) return;
+        const event = new CustomerAddressChangedEvent(
+            {
+                customerId: this.id,
+                customerName: this.name,
+                addressStreet: this.address.street,
+                addressNumber: this.address.number,
+                addressZipcode: this.address.zipcode,
+                addressCity: this.address.city,
+            }
+        );
+
+        this._event_dispatcher.notify(event);
+    }
+
+    fireCustomerCreatedEvent() {
+        if (!this._event_dispatcher) return;
+        this._event_dispatcher.notify(new CustomerCreatedEvent({customerId: this.id}))
     }
 }

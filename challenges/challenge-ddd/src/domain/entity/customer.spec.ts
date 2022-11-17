@@ -34,7 +34,7 @@ describe("Customer unit tests", () => {
         const address = new Address(
             "Av. Neverland", 2, "1234-4312", "The citadel"
         );
-        customer.setAddress(address);
+        customer.changeAddress(address);
         customer.activate();
         expect(customer.isActive()).toBe(true);
     });
@@ -44,7 +44,7 @@ describe("Customer unit tests", () => {
         const address = new Address(
             "Av. Neverland", 2, "1234-4312", "The citadel"
         );
-        customer.setAddress(address);
+        customer.changeAddress(address);
         customer.deactivate();
         expect(customer.isActive()).toBe(false);
     });
