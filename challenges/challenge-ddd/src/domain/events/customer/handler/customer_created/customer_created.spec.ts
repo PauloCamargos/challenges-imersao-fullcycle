@@ -1,6 +1,6 @@
 
 import Customer from "../../../../entity/customer";
-import EventDispatcher from "../../../@shared/event-dispatcher";
+import EventDispatcher from "../../../@shared/event_dispatcher";
 import SendConsoleLog1WhenCustomerCreatedHandler from "./send_console_log_1_when_customer_created.handler";
 import SendConsoleLog2WhenCustomerCreatedHandler from "./send_console_log_2_when_customer_created.handler";
 

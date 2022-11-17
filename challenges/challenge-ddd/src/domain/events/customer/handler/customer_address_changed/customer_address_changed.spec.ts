@@ -1,6 +1,6 @@
 import Address from "../../../../entity/address";
 import Customer from "../../../../entity/customer";
-import EventDispatcher from "../../../@shared/event-dispatcher";
+import EventDispatcher from "../../../@shared/event_dispatcher";
 import SendConsoleLogWhenCustomerAddressChangedHandler from "./send_console_log_when_customer_address_changed.handler";
 
 describe("Customer address event tests", () => {
