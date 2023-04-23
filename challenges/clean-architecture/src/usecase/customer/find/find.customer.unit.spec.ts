@@ -21,8 +21,6 @@ describe("Unit Test find customer use case", () => {
     const customerRepository = MockRepository();
     const useCase = new FindCustomerUseCase(customerRepository);
 
-    await customerRepository.create(customer);
-
     const input = {
       id: "123"
     };
