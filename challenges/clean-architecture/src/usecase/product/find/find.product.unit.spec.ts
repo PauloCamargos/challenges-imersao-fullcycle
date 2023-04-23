@@ -44,8 +44,6 @@ describe("Unit Test find a product use case", () => {
       id: product.id,
     }
 
-    expect(async () => {
-      await useCase.execute(input);
-    }).rejects.toThrow("Product not found.")
+    expect(async () => await useCase.execute(input)).rejects.toThrow("Product not found.")
   });
 });

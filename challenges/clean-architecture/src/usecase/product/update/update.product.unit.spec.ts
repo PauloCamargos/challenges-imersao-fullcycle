@@ -21,11 +21,11 @@ const MockRepository = () => {
 
 describe("Unit Test product update use case", () => {
   it("should update a product", async () => {
-    const productRepository = MockRepository();
-    const useCase = new UpdateProductUseCase(productRepository)
+    const repository = MockRepository();
+    const useCase = new UpdateProductUseCase(repository)
 
-    const expectedOutput = await useCase.execute(input);
+    const output = await useCase.execute(input);
 
-    expect(expectedOutput).toEqual(input);
+    expect(output).toEqual(input);
   });
 })
