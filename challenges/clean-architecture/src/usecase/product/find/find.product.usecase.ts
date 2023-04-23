@@ -17,5 +17,10 @@ export default class FindProductUseCase {
       price: product.price,
     }
 
+    // return product.then(
+    //   product => {
+    //   }
+    // ).catch(error => Promise.reject(error))
+
   }
 }

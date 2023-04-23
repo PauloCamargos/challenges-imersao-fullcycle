@@ -33,7 +33,7 @@ describe("Unit Test find a product use case", () => {
     expect(output).toEqual(expectedOutput)
   });
 
-  it("should should not find a customer", async () => {
+  it("should should not find a product", async () => {
     const productRepository = MockRepository()
     productRepository.find.mockImplementation(() => {
       throw new Error("Product not found.")
@@ -44,8 +44,8 @@ describe("Unit Test find a product use case", () => {
       id: product.id,
     }
 
-    expect(() => {
-      return useCase.execute(input);
+    expect(async () => {
+      await useCase.execute(input);
     }).rejects.toThrow("Product not found.")
   });
 });
