@@ -1,10 +1,12 @@
+import AbstractEntity from "../../@shared/entity/entity.abstract";
 import EventDispatcherInterface from "../../@shared/event/event_dispatcher.interface";
+import NotificationError from "../../@shared/notification/notification.error";
 import CustomerAddressChangedEvent from "../../customer/events/customer_address_changed.event";
 import CustomerCreatedEvent from "../../customer/events/customer_created.event";
 import Address from "../value-object/address";
 
-export default class Customer {
-    private _id: string;
+export default class Customer extends AbstractEntity {
+    // private _id: string;
     private _name: string;
     private _address!: Address;
     private _active: boolean = false;
@@ -16,10 +18,15 @@ export default class Customer {
         name: string,
         event_dispatcher: EventDispatcherInterface | null = null,
     ) {
-        this._id = id;
+        super();
+        this.id = id;
         this._name = name;
         this.validate();
         this._event_dispatcher = event_dispatcher;
+
+        if (this.notification.hasError()) {
+            throw new NotificationError(this.notification.getErrors());
+        }
 
         this.fireCustomerCreatedEvent();
     }
@@ -32,9 +39,9 @@ export default class Customer {
         return this._address;
     }
 
-    get id(): string {
-        return this._id;
-    }
+    // get id(): string {
+    //     return this.id;
+    // }
 
     get rewardPoints(): number {
         return this._rewardPoints;
@@ -42,11 +49,19 @@ export default class Customer {
 
 
     validate() {
-        if (this._name.length === 0) {
-            throw new Error("Name is required.");
+        if (this.id.length === 0) {
+            this.notification.addError({
+                message: "name is required",
+                context: "customer"
+            });
+            // throw new Error("Id is required.");
         }
-        if (this._id.length === 0) {
-            throw new Error("Id is required.");
+        if (this._name.length === 0) {
+            this.notification.addError({
+                message: "id is required",
+                context: "customer"
+            });
+            // throw new Error("Name is required.");
         }
     }
 
@@ -78,7 +93,7 @@ export default class Customer {
     addRewardPoints(points: number) {
         this._rewardPoints += points;
     }
-    
+
     fireCustomerAddressChangedEvent() {
         if (!this._event_dispatcher) return;
         const event = new CustomerAddressChangedEvent(
@@ -97,6 +112,6 @@ export default class Customer {
 
     fireCustomerCreatedEvent() {
         if (!this._event_dispatcher) return;
-        this._event_dispatcher.notify(new CustomerCreatedEvent({customerId: this.id}))
+        this._event_dispatcher.notify(new CustomerCreatedEvent({ customerId: this.id }));
     }
 }
