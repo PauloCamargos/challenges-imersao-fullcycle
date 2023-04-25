@@ -6,14 +6,21 @@ describe("Customer unit tests", () => {
 
         expect(() => {
             let customer = new Customer("", "John Doe");
-        }).toThrowError("Id is required.");
+        }).toThrowError("customer: id is required");
     });
 
     it("shoud throw error when name is emtpy", () => {
 
         expect(() => {
             let customer = new Customer("123", "");
-        }).toThrowError("Name is required.");
+        }).toThrowError("customer: name is required");
+    });
+
+    it("shoud throw error when name and id are emtpy", () => {
+
+        expect(() => {
+            let customer = new Customer("", "");
+        }).toThrowError("customer: id is required,customer: name is required");
     });
 
     it("shoud change name", () => {
