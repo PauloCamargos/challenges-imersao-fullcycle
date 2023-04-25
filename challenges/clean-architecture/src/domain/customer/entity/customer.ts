@@ -3,6 +3,7 @@ import EventDispatcherInterface from "../../@shared/event/event_dispatcher.inter
 import NotificationError from "../../@shared/notification/notification.error";
 import CustomerAddressChangedEvent from "../../customer/events/customer_address_changed.event";
 import CustomerCreatedEvent from "../../customer/events/customer_created.event";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import Address from "../value-object/address";
 import CustomerInterface from "./customer.interface";
 
@@ -43,20 +44,8 @@ export default class Customer extends AbstractEntity implements CustomerInterfac
         return this._rewardPoints;
     }
 
-
     validate() {
-        if (this.id.length === 0) {
-            this.notification.addError({
-                message: "id is required",
-                context: "customer"
-            });
-        }
-        if (this._name.length === 0) {
-            this.notification.addError({
-                message: "name is required",
-                context: "customer"
-            });
-        }
+        CustomerValidatorFactory.create().validate(this);
     }
 
     changeName(name: string) {
