@@ -37,7 +37,6 @@ describe("Unit Test for notifications", () => {
 
     );
 
-
   });
 
   it("should check if notification has at least on error", async () => {
