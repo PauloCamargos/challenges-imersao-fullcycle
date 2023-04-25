@@ -1,5 +1,6 @@
 import AbstractEntity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
+import ProductValidatorFactory from "../factory/product.validator.factory";
 import ProductInterface from "./product.interface";
 
 export default class Product extends AbstractEntity implements ProductInterface {
@@ -14,7 +15,7 @@ export default class Product extends AbstractEntity implements ProductInterface 
         this.validate();
 
         if (this.notification.hasError()) {
-            throw new NotificationError(this.notification.getErrors())
+            throw new NotificationError(this.notification.getErrors());
         }
     }
 
@@ -27,26 +28,27 @@ export default class Product extends AbstractEntity implements ProductInterface 
     }
 
     validate() {
-        if (this._id.length === 0) {
-            this.notification.addError({
-                message: "id is required",
-                context: "product"
-            });
-        }
+        ProductValidatorFactory.create().validate(this);
+        // if (this._id.length === 0) {
+        //     this.notification.addError({
+        //         message: "id is required",
+        //         context: "product"
+        //     });
+        // }
 
-        if (this._name.length === 0) {
-            this.notification.addError({
-                message: "name is required",
-                context: "product"
-            });
-        }
+        // if (this._name.length === 0) {
+        //     this.notification.addError({
+        //         message: "name is required",
+        //         context: "product"
+        //     });
+        // }
 
-        if (this._price < 0) {
-            this.notification.addError({
-                message: "price must be greater than zero",
-                context: "product"
-            });
-        }
+        // if (this._price < 0) {
+        //     this.notification.addError({
+        //         message: "price must be greater than 0",
+        //         context: "product"
+        //     });
+        // }
     }
 
     changeName(name: string) {

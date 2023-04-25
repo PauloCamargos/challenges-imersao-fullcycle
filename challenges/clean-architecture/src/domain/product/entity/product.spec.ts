@@ -17,14 +17,14 @@ describe("Product unit tests", () => {
     it("should throw error when price is negative", () => {
         expect(() => {
             let product = new Product("P1", "Product 1", -1);
-        }).toThrowError("product: price must be greater than zero");
+        }).toThrowError("product: price must be greater than 0");
     });
 
     it("should throw error when id and name is empty and price is negative", () => {
         expect(() => {
             let product = new Product("", "", -1);
         }).toThrowError(
-            "product: id is required,product: name is required,product: price must be greater than zero",
+            "product: id is required,product: name is required,product: price must be greater than 0",
         );
     });
 

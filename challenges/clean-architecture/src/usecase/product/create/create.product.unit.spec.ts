@@ -54,7 +54,7 @@ describe("Unit Test create product use case", () => {
     };
 
     await expect(productCreateUseCase.execute(input)).rejects.toThrow(
-      "product: price must be greater than zero"
+      "product: price must be greater than 0"
     );
   });
 });

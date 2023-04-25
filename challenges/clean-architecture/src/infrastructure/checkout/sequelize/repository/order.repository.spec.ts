@@ -44,7 +44,7 @@ describe("Order repository tests", () => {
         await customerRepository.create(customer);
 
         const productRepository = new ProductRepository();
-        const product = new Product("1", "P1", 0);
+        const product = new Product("1", "P1", 1);
         await productRepository.create(product);
 
         const orderItem = new OrderItem("1", product.name, product.price, product.id, 2);
