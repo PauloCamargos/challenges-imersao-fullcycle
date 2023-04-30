@@ -3,6 +3,7 @@ import { ProductModel } from "../repository/product.model";
 import ProductRepository from "../repository/product.repository";
 import AddProductUseCase from "../usercase/add-product/add-product.usecase";
 import ProductAdmFacade from "./product-adm.facade";
+import ProductAdmFacadeFactory from "../factory/facade.factory";
 
 describe("Product adm facade unit test", () => {
   let sequelize: Sequelize;
@@ -22,12 +23,7 @@ describe("Product adm facade unit test", () => {
     await sequelize.close();
   });
   it("should add a product", async () => {
-    const productRepostitory = new ProductRepository();
-    const addProductUseCase = new AddProductUseCase(productRepostitory);
-    const productFacade = new ProductAdmFacade({
-      addUseCase: addProductUseCase,
-      checkStockUseCase: undefined,
-    });
+    const productFacade = ProductAdmFacadeFactory.create()
 
     const input = {
       id: "1",
