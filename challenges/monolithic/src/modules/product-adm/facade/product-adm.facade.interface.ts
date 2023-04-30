@@ -1,5 +1,3 @@
-import { string } from "yup";
-
 export interface AddProductFacadeInputDTO {
   id?: string,
   name?: string,

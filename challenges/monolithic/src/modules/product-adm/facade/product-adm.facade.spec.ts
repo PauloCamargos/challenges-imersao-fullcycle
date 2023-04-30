@@ -22,6 +22,7 @@ describe("Product adm facade unit test", () => {
   afterEach(async () => {
     await sequelize.close();
   });
+
   it("should add a product", async () => {
     const productFacade = ProductAdmFacadeFactory.create()
 
