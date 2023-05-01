@@ -28,6 +28,7 @@ describe("Find product sc use case test", () => {
 
     const output = await findProductUseCase.execute(input);
 
+    expect(productRepository.find).toHaveBeenCalled();
     expect(output.id).toBe(product.id.id);
     expect(output.name).toBe(product.name);
     expect(output.description).toBe(product.description);
