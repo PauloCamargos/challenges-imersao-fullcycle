@@ -5,7 +5,7 @@ type ProductSProps = {
   id: Id,
   name: string,
   description: string,
-  salesPrice: number,
+  salePrice: number,
 };
 
 export default class ProductSC extends BaseEntity {
@@ -17,7 +17,7 @@ export default class ProductSC extends BaseEntity {
     super(props.id);
     this._name = props.name;
     this._description = props.description;
-    this._salePrice = props.salesPrice;
+    this._salePrice = props.salePrice;
   }
 
   public get name(): string {

@@ -6,14 +6,14 @@ const product1 = new ProductSC({
   id: new Id("1"),
   name: "product 1",
   description: "product description 1",
-  salesPrice: 10,
+  salePrice: 10,
 });
 
 const product2 = new ProductSC({
   id: new Id("2"),
   name: "product 2",
   description: "product description 2",
-  salesPrice: 20,
+  salePrice: 20,
 });
 
 const MockRepository = () => {
