@@ -14,11 +14,11 @@ export default class StoreCatalogFacade implements StoreCatalogFacadeInterface{
     this._findUseCase = props.findUseCase
     this._findAllUseCase = props.findAllUseCase
   }
-  find(id: FindStoreCatalogFacadeInputDTO): Promise<FindStoreCatalogFacadeOutputDTO> {
-    return this._findUseCase.execute(id)
+  async find(id: FindStoreCatalogFacadeInputDTO): Promise<FindStoreCatalogFacadeOutputDTO> {
+    return await this._findUseCase.execute(id)
   }
-  findlAll(): Promise<FindAllStoreCatalogFacadeOutputDTO> {
-    return this._findAllUseCase.execute({})
+  async findlAll(): Promise<FindAllStoreCatalogFacadeOutputDTO> {
+    return await this._findAllUseCase.execute({})
   }
 
 }
