@@ -32,13 +32,36 @@ describe("Client repository unit test", () => {
       address: "address client"
     });
 
-    repository.add(client)
+    repository.add(client);
 
-    const foundModel =  await ClientModel.findOne({where: {id: client.id.id}})
+    const foundModel = await ClientModel.findOne({ where: { id: client.id.id } });
 
-    expect(foundModel.id).toBe(client.id.id)
-    expect(foundModel.name).toBe(client.name)
-    expect(foundModel.email).toBe(client.email)
-    expect(foundModel.address).toBe(client.address)
+    expect(foundModel.id).toBe(client.id.id);
+    expect(foundModel.name).toBe(client.name);
+    expect(foundModel.email).toBe(client.email);
+    expect(foundModel.address).toBe(client.address);
+    expect(foundModel.createdAt).toEqual(client.createdAt);
+    expect(foundModel.updatedAt).toEqual(client.updatedAt);
+  });
+
+  it("should find a product", async () => {
+    const repository = new ClientRepository();
+
+    const client = await ClientModel.create({
+      id: "1",
+      name: "client 1",
+      email: "email@client.com",
+      address: "address client",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    const foundModel = await repository.find(client.id);
+
+    expect(foundModel.id.id).toBe(client.id);
+    expect(foundModel.name).toBe(client.name);
+    expect(foundModel.email).toBe(client.email);
+    expect(foundModel.address).toBe(client.address);
+    expect(foundModel.createdAt).toEqual(client.createdAt);
+    expect(foundModel.updatedAt).toEqual(client.updatedAt);
   });
 });
