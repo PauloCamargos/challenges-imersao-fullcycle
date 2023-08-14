@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { ProductModel } from "../repository/product.model";
-import ProductAdmFacadeFactory from "../factory/facade.factory";
+import ProductAdmFacadeFactory from "../factory/product-adm.facade.factory";
 
 describe("Product adm facade unit test", () => {
   let sequelize: Sequelize;
@@ -23,26 +23,26 @@ describe("Product adm facade unit test", () => {
   it("should add a product", async () => {
     const productFacade = ProductAdmFacadeFactory.create();
 
-    const input = {
+    const productInput = {
       id: "1",
       name: "product 1",
       description: "product description 1",
       purchasePrice: 100,
       stock: 10,
     };
-    await productFacade.addProduct(input);
+    await productFacade.addProduct(productInput);
     const foundProduct = await ProductModel.findOne({
       where: {
-        id: input.id,
+        id: productInput.id,
       }
     });
 
     expect(foundProduct).toBeDefined();
-    expect(foundProduct.id).toBe(input.id);
-    expect(foundProduct.name).toBe(input.name);
-    expect(foundProduct.description).toBe(input.description);
-    expect(foundProduct.purchasePrice).toBe(input.purchasePrice);
-    expect(foundProduct.stock).toBe(input.stock);
+    expect(foundProduct.id).toBe(productInput.id);
+    expect(foundProduct.name).toBe(productInput.name);
+    expect(foundProduct.description).toBe(productInput.description);
+    expect(foundProduct.purchasePrice).toBe(productInput.purchasePrice);
+    expect(foundProduct.stock).toBe(productInput.stock);
 
   });
 

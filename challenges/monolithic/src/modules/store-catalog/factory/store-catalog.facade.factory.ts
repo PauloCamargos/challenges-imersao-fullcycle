@@ -1,8 +1,8 @@
 import ProductRepository from "../../product-adm/repository/product.repository";
 import StoreCatalogFacade from "../facade/store-catalog.facade";
 import ProductSCRepository from "../repository/product-sc.repository";
-import FindAllProductsSCUseCase from "../use-case/find-all-products-sc/find-all-products-sc.usecase";
-import FindProductSCUseCase from "../use-case/find-product-sc/find-product-sc.usecase";
+import FindAllProductsSCUseCase from "../usecase/find-all-products-sc/find-all-products-sc.usecase";
+import FindProductSCUseCase from "../usecase/find-product-sc/find-product-sc.usecase";
 
 export default class StoreCatalogFacadeFactory {
   static create(): StoreCatalogFacade {
