@@ -44,7 +44,7 @@ describe("Client repository unit test", () => {
     expect(foundModel.updatedAt).toEqual(client.updatedAt);
   });
 
-  it("should find a product", async () => {
+  it("should find a client", async () => {
     const repository = new ClientRepository();
 
     const client = await ClientModel.create({
@@ -61,7 +61,7 @@ describe("Client repository unit test", () => {
     expect(foundModel.name).toBe(client.name);
     expect(foundModel.email).toBe(client.email);
     expect(foundModel.address).toBe(client.address);
-    expect(foundModel.createdAt).toEqual(client.createdAt);
-    expect(foundModel.updatedAt).toEqual(client.updatedAt);
+    expect(foundModel.createdAt).toStrictEqual(client.createdAt);
+    expect(foundModel.updatedAt).toStrictEqual(client.updatedAt);
   });
 });
