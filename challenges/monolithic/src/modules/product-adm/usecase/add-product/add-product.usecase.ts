@@ -27,8 +27,7 @@ export default class AddProductUseCase {
       purchasePrice: product.purchasePrice,
       stock: product.stock,
       createdAt: product.createdAt,
-      updatedAt: product.updatedAt
-
+      updatedAt: product.updatedAt 
     };
   }
 }

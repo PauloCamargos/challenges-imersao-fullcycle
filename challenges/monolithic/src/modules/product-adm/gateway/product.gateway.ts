@@ -1,4 +1,3 @@
-import { mapFinderOptions } from "sequelize/types/utils";
 import Product from "../domain/product.entity";
 
 export default interface ProductGateway {
