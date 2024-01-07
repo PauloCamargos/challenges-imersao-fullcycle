@@ -20,7 +20,19 @@ export default class InvoiceModel extends Model {
      declare addressStreet: string;
      
      @Column({ allowNull: false })
-     declare addressNumber: number;
+     declare addressNumber: string;
+
+     @Column({ allowNull: false })
+     declare addressState: string;
+     
+     @Column({ allowNull: false })
+     declare addressComplement: string;
+     
+     @Column({ allowNull: false })
+     declare addressCity: string;
+     
+     @Column({ allowNull: false })
+     declare addressZipCode: string;
 
      @HasMany(() => InvoiceItemModel)
      declare items: InvoiceItemModel[];

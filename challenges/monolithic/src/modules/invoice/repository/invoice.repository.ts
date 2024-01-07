@@ -23,6 +23,10 @@ export default class InvoiceRepository implements InvoiceGateway {
                 })),
                 addressStreet: invoice.address.street,
                 addressNumber: invoice.address.number,
+                addressCity: invoice.address.city,
+                addressState: invoice.address.state,
+                addressZipCode: invoice.address.zipCode,
+                addressComplement: invoice.address.complement,
                 createdAt: invoice.createdAt,
                 updatedAt: invoice.updatedAt,
             },
@@ -47,10 +51,14 @@ export default class InvoiceRepository implements InvoiceGateway {
             id: new Id(invoice.id),
             name: invoice.name,
             document: invoice.document,
-            address: new Address(
-                invoice.addressStreet,
-                invoice.addressNumber,
-            ),
+            address: new Address({
+                street: invoice.addressStreet,
+                number: invoice.addressNumber,
+                city: invoice.addressCity,
+                state: invoice.addressState,
+                zipCode: invoice.addressZipCode,
+                complement: invoice.addressComplement,
+            }),
             items: invoice.items.map(
                 item => (
                     new InvoiceItem({

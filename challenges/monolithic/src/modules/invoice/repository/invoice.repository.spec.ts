@@ -27,7 +27,7 @@ describe("Invoice repository tests", () => {
     afterEach(async () => {
         await sequelize.close();
     });
-    
+
     it("should create a new invoice", async () => {
         const repository = new InvoiceRepository();
 
@@ -41,7 +41,14 @@ describe("Invoice repository tests", () => {
             name: "Item 2",
             price: 10.0,
         });
-        const address = new Address("Foo st.", 1000);
+        const address = new Address({
+            street: "Foo st.",
+            number: "1000",
+            city: "foo",
+            state: "ZZ",
+            zipCode: "123",
+            complement: "",
+        });
 
         const invoice = new Invoice({
             id: new Id("invoice1"),
@@ -68,6 +75,10 @@ describe("Invoice repository tests", () => {
             document: invoice.document,
             addressStreet: invoice.address.street,
             addressNumber: invoice.address.number,
+            addressCity: invoice.address.city,
+            addressState: invoice.address.state,
+            addressZipCode: invoice.address.zipCode,
+            addressComplement: invoice.address.complement,
             items: invoice.items.map(
                 item => ({
                     id: item.id.id,
@@ -98,7 +109,15 @@ describe("Invoice repository tests", () => {
             name: "Item 2",
             price: 10.0,
         });
-        const address = new Address("Foo st.", 1000);
+
+        const address = new Address({
+            street: "Foo st.",
+            number: "1000",
+            city: "foo",
+            state: "ZZ",
+            zipCode: "123",
+            complement: "",
+        });
 
         const invoice = new Invoice({
             id: new Id("invoice1"),
@@ -111,8 +130,8 @@ describe("Invoice repository tests", () => {
 
         await repository.generate(invoice);
 
-        const foundInvoice = await repository.find(invoice.id.id)
-        expect(foundInvoice).toEqual(invoice)
+        const foundInvoice = await repository.find(invoice.id.id);
+        expect(foundInvoice).toEqual(invoice);
 
     });
 
