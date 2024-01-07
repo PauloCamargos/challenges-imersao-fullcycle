@@ -9,7 +9,7 @@ export default class PaymentFacade implements PaymentFacadeInterface {
      async process(input: PaymentInputDTO): Promise<PaymentOutputDTO> {
           const transaction = await this.processPaymentUseCase.execute(input);
           return {
-               transactionID: transaction.transactionId,
+               transactionId: transaction.transactionId,
                amount: transaction.amount,
                status: transaction.status,
                orderId: transaction.orderId,

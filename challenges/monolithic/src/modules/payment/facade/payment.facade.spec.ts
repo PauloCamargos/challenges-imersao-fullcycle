@@ -30,7 +30,7 @@ describe("Payment facade unit test", () => {
 
           const output = await paymentFacade.process(input);
 
-          expect(output.transactionID).toBeDefined();
+          expect(output.transactionId).toBeDefined();
           expect(output.orderId).toBe(input.orderId);
           expect(output.status).toBe("approved");
           expect(output.amount).toBe(input.amount);

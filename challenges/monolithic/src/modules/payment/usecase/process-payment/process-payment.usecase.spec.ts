@@ -18,7 +18,7 @@ describe("Process transaction", () => {
           const result = await processPaymentUseCase.execute(input);
 
           expect(transactionRepository.save).toHaveBeenCalled();
-          expect(result.transactionID).toBeDefined();
+          expect(result.transactionId).toBeDefined();
           expect(result.status).toBe("approved");
           expect(result.amount).toBe(input.amount);
           expect(result.orderId).toBe(input.orderId);
@@ -34,7 +34,7 @@ describe("Process transaction", () => {
           const result = await processPaymentUseCase.execute(input);
 
           expect(transactionRepository.save).toHaveBeenCalled();
-          expect(result.transactionID).toBeDefined();
+          expect(result.transactionId).toBeDefined();
           expect(result.status).toBe("declined");
           expect(result.amount).toBe(input.amount);
           expect(result.orderId).toBe(input.orderId);

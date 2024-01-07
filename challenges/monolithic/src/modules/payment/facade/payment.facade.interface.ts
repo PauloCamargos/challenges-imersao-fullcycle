@@ -4,7 +4,7 @@ export interface PaymentInputDTO {
 }
 
 export interface PaymentOutputDTO {
-     transactionID: string;
+     transactionId: string;
      orderId: string;
      amount: number;
      status: string;

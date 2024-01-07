@@ -4,7 +4,7 @@ export interface ProcessPyamenInputtDTO {
 }
 
 export interface ProcessPyamentOutputDTO {
-     transactionID: string;
+     transactionId: string;
      orderId: string;
      amount: number;
      status: string;
