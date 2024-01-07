@@ -38,7 +38,7 @@ const MockRepository = () => {
      };
 };
 
-describe("Find invoice", async () => {
+describe("Find invoice", () => {
      it("should find and invoice",  async () => {
           const repository = MockRepository();
           const findInvoiceUseCase = new FindInvoiceUseCase(repository);

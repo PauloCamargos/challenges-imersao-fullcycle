@@ -31,6 +31,7 @@ export default class FindInvoiceUseCase implements UseCaseInterface {
           );
 
           const invoice = new Invoice({
+               id: persistedInvoice.id,
                name: persistedInvoice.name,
                document: persistedInvoice.document,
                address: address,
