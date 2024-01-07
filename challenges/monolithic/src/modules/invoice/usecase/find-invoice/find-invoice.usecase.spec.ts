@@ -56,6 +56,7 @@ describe("Find invoice", () => {
           expect(result.address.city).toBe(invoice.address.city)
           expect(result.address.state).toBe(invoice.address.state)
           expect(result.address.zipCode).toBe(invoice.address.zipCode)
+          expect(result.total).toBe(invoice.total())
           result.items.forEach(item => {
                expect(result.items).toContainEqual({
                     id: item.id,

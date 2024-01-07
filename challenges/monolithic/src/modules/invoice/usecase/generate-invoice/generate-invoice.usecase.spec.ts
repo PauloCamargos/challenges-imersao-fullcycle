@@ -1,4 +1,3 @@
-import InvoiceFacadeFactory from "../../factory/invoice.facade.factory";
 import GenerateInvoiceUseCase from "./generate.invoice.usecase";
 
 const MockRepository = () => {
@@ -11,8 +10,8 @@ const MockRepository = () => {
 
 describe("Generate an invoice", () => {
      it("should generate an invoice", async () => {
-          const repository = MockRepository()
-          const generateInvoicUseCase = new GenerateInvoiceUseCase(repository)
+          const repository = MockRepository();
+          const generateInvoicUseCase = new GenerateInvoiceUseCase(repository);
 
           const input = {
                name: "foo",
@@ -37,19 +36,19 @@ describe("Generate an invoice", () => {
                ],
           };
 
-          const result = await generateInvoicUseCase.execute(input)
+          const result = await generateInvoicUseCase.execute(input);
 
           expect(repository.generate).toHaveBeenCalled();
-          expect(result.id).toBeDefined()
-          expect(result.name).toBe(input.name)
-          expect(result.document).toBe(input.document)
-          expect(result.street).toBe(input.street)
-          expect(result.number).toBe(input.number)
-          expect(result.complement).toBe(input.complement)
-          expect(result.city).toBe(input.city)
-          expect(result.state).toBe(input.state)
-          expect(result.zipCode).toBe(input.zipCode)
+          expect(result.id).toBeDefined();
+          expect(result.name).toBe(input.name);
+          expect(result.document).toBe(input.document);
+          expect(result.street).toBe(input.street);
+          expect(result.number).toBe(input.number);
+          expect(result.complement).toBe(input.complement);
+          expect(result.city).toBe(input.city);
+          expect(result.state).toBe(input.state);
+          expect(result.zipCode).toBe(input.zipCode);
 
-          expect(result.items).toStrictEqual(input.items)
+          expect(result.items).toStrictEqual(input.items);
      });
 });
