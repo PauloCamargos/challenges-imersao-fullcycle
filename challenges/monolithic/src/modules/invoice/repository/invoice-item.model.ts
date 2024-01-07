@@ -22,4 +22,10 @@ export default class InvoiceItemModel extends Model {
 
      @BelongsTo(() => InvoiceModel,)
      declare invoice: InvoiceModel;
+
+     @Column({ allowNull: false })
+     declare createdAt: Date;
+
+     @Column({ allowNull: false })
+     declare updatedAt: Date;
 }

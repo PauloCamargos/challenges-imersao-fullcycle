@@ -18,6 +18,8 @@ export default class InvoiceRepository implements InvoiceGateway {
                     id: item.id.id,
                     name: item.name,
                     price: item.price,
+                    createdAt: item.createdAt,
+                    updatedAt: item.updatedAt,
                 })),
                 addressStreet: invoice.address.street,
                 addressNumber: invoice.address.number,
@@ -55,6 +57,8 @@ export default class InvoiceRepository implements InvoiceGateway {
                         id: new Id(item.id),
                         name: item.name,
                         price: item.price,
+                        createdAt: item.createdAt,
+                        updatedAt: item.updatedAt,
                     })
                 )
             ),
