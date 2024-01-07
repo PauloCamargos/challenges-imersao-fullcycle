@@ -6,7 +6,15 @@ export default class PaymentFacade implements PaymentFacadeInterface {
           this.processPaymentUseCase = processPaymentUseCase;
      }
 
-     process(input: PaymentInputDTO): Promise<PaymentOutputDTO> {
-          return this.processPaymentUseCase.execute(input);
+     async process(input: PaymentInputDTO): Promise<PaymentOutputDTO> {
+          const transaction = await this.processPaymentUseCase.execute(input);
+          return {
+               transactionID: transaction.transactionId,
+               amount: transaction.amount,
+               status: transaction.status,
+               orderId: transaction.orderId,
+               createdAt: transaction.createdAt,
+               updatedAt: transaction.updatedAt,
+          };
      }
 }

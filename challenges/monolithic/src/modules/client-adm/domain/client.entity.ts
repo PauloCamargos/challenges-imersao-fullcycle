@@ -1,3 +1,4 @@
+import AggregateRoot from "../../@shared/domain/enitty/aggregate-root.interface";
 import BaseEntity from "../../@shared/domain/enitty/base.entity";
 import Id from "../../@shared/domain/enitty/value-object/id.value-object";
 
@@ -10,7 +11,7 @@ type ClientProps = {
   updatedAt?: Date;
 };
 
-export default class Client extends BaseEntity {
+export default class Client extends BaseEntity implements AggregateRoot {
   private _name: string;
   private _email: string;
   private _address: string;
