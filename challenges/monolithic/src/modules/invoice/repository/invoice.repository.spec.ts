@@ -95,7 +95,7 @@ describe("Invoice repository tests", () => {
 
     });
 
-    it("should find a client", async () => {
+    it("should find an invoice", async () => {
 
         const repository = new InvoiceRepository();
 

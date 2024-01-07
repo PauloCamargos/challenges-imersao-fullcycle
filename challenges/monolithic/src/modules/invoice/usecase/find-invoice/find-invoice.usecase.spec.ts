@@ -39,7 +39,7 @@ const MockRepository = () => {
 };
 
 describe("Find invoice", () => {
-     it("should find and invoice",  async () => {
+     it("should find an invoice",  async () => {
           const repository = MockRepository();
           const findInvoiceUseCase = new FindInvoiceUseCase(repository);
           const input = {
