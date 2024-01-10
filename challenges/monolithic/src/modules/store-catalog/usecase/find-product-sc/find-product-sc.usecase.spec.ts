@@ -7,7 +7,7 @@ const product = new ProductSC({
   id: new Id("1"),
   name: "product 1",
   description: "product 1 description",
-  salePrice: 10,
+  salesPrice: 10,
 });
 
 const MockRepository = () => {
@@ -32,7 +32,7 @@ describe("Find product sc use case test", () => {
     expect(output.id).toBe(product.id.id);
     expect(output.name).toBe(product.name);
     expect(output.description).toBe(product.description);
-    expect(output.salePrice).toBe(product.salePrice);
+    expect(output.salesPrice).toBe(product.salesPrice);
 
   });
 });

@@ -6,14 +6,14 @@ const product1 = new ProductSC({
   id: new Id("1"),
   name: "product 1",
   description: "product description 1",
-  salePrice: 10,
+  salesPrice: 10,
 });
 
 const product2 = new ProductSC({
   id: new Id("2"),
   name: "product 2",
   description: "product description 2",
-  salePrice: 20,
+  salesPrice: 20,
 });
 
 const MockRepository = () => {
@@ -37,13 +37,13 @@ describe("Find all products stock catalog unit test", () => {
     expect(outputProduct1.id).toBe(product1.id.id);
     expect(outputProduct1.name).toBe(product1.name);
     expect(outputProduct1.description).toBe(product1.description);
-    expect(outputProduct1.salePrice).toBe(product1.salePrice);
+    expect(outputProduct1.salesPrice).toBe(product1.salesPrice);
 
     const outputProduct2 = output.products[1];
     expect(outputProduct2.id).toBe(product2.id.id);
     expect(outputProduct2.name).toBe(product2.name);
     expect(outputProduct2.description).toBe(product2.description);
-    expect(outputProduct2.salePrice).toBe(product2.salePrice);
+    expect(outputProduct2.salesPrice).toBe(product2.salesPrice);
 
 
 

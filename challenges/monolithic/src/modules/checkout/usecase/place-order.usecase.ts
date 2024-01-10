@@ -1,32 +1,52 @@
+import Id from "../../@shared/domain/enitty/value-object/id.value-object";
 import UseCaseInterface from "../../@shared/usecase/usecase.interface";
 import ClientAdmFacadeInterface from "../../client-adm/facade/client-adm.facade.interface";
 import ProductAdmFacadeInterface from "../../product-adm/facade/product-adm.facade.interface";
+import StoreCatalogFacadeInterface from "../../store-catalog/facade/store-catalog.facade.interface";
+import Client from "../domain/client.entity";
+import Order from "../domain/order.entity";
+import Product from "../domain/product.entity";
 import { PlaceOrderInputDto, PlaceOrderOutputTto } from "./place-order.usecase.dto";
 
 export default class PlaceOrderUseCase implements UseCaseInterface {
      private _clientFacade: ClientAdmFacadeInterface;
      private _productFacade: ProductAdmFacadeInterface;
+     private _catalogFacade: StoreCatalogFacadeInterface;
 
-     constructor(_clientFacade: ClientAdmFacadeInterface, _productFacade: ProductAdmFacadeInterface) {
+     constructor(
+          _clientFacade: ClientAdmFacadeInterface,
+          _productFacade: ProductAdmFacadeInterface,
+          _catalogFacade: StoreCatalogFacadeInterface,
+     ) {
           this._clientFacade = _clientFacade;
           this._productFacade = _productFacade;
+          this._catalogFacade = _catalogFacade;
      }
 
      async execute(input: PlaceOrderInputDto): Promise<PlaceOrderOutputTto> {
-          // fecth client, explode if cant find
           const client = await this._clientFacade.find({ id: input.clientId });
           if (!client) {
                throw new Error("Client not found");
           }
-          // validate products
+
           await this.validateProducts(input);
 
-          // fetch products
+          const products = await Promise.all(
+               input.products.map(p => this.getProduct(p.productId))
+          );
 
-          // create client obj
+          const myClient = new Client({
+               id: new Id(client.id),
+               name: client.name,
+               email: client.email,
+               address: client.address,
+          });
 
           // create order obj (client, product)
-
+          const order = new Order({
+               client: myClient,
+               products: products,
+          })
 
           // process payment
           // case payment approved generate invoice
@@ -56,6 +76,20 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
                     throw new Error(`Product ${p.productId} is not available in stock`);
                }
           }
+     }
+
+     private async getProduct(productId: string): Promise<Product> {
+          const product = await this._catalogFacade.find({ id: productId });
+          if (!product) {
+               throw new Error("Product not found");
+          }
+          const productProps = {
+               id: new Id(product.id),
+               name: product.name,
+               description: product.description,
+               salesPrice: product.salesPrice
+          };
+          return new Product(productProps);
      }
 
 }

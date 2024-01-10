@@ -5,19 +5,19 @@ type ProductSProps = {
   id: Id,
   name: string,
   description: string,
-  salePrice: number,
+  salesPrice: number,
 };
 
 export default class ProductSC extends BaseEntity {
   private _name: string;
   private _description: string;
-  private _salePrice: number;
+  private _salesPrice: number;
 
   constructor(props: ProductSProps) {
     super(props.id);
     this._name = props.name;
     this._description = props.description;
-    this._salePrice = props.salePrice;
+    this._salesPrice = props.salesPrice;
   }
 
   public get name(): string {
@@ -32,11 +32,11 @@ export default class ProductSC extends BaseEntity {
   public set description(value: string) {
     this._description = value;
   }
-  public get salePrice(): number {
-    return this._salePrice;
+  public get salesPrice(): number {
+    return this._salesPrice;
   }
-  public set salePrice(value: number) {
-    this._salePrice = value;
+  public set salesPrice(value: number) {
+    this._salesPrice = value;
   }
 
 }

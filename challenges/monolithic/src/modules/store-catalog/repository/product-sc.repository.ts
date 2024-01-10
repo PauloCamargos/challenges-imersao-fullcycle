@@ -12,7 +12,7 @@ export default class ProductSCRepository implements ProductSCGateway {
       id: new Id(product.id),
       name: product.name,
       description: product.description,
-      salePrice: product.salePrice,
+      salesPrice: product.salesPrice,
     }));
   }
   async find(id: string): Promise<ProductSC> {
@@ -26,7 +26,7 @@ export default class ProductSCRepository implements ProductSCGateway {
       id: new Id(product.id),
       name: product.name,
       description: product.description,
-      salePrice: product.salePrice
+      salesPrice: product.salesPrice
     });
   }
 

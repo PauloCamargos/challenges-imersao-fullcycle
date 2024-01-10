@@ -16,5 +16,5 @@ export default class ProductSCModel extends Model {
   description: string;
 
   @Column({ allowNull: false })
-  salePrice: number;
+  salesPrice: number;
 }

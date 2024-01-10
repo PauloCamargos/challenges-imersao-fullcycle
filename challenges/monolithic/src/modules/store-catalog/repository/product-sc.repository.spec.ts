@@ -25,13 +25,13 @@ describe("Produc SC repository tests", () => {
       id: "1",
       name: "product 1",
       description: "product description 1",
-      salePrice: 10,
+      salesPrice: 10,
     })
     const product2 = await ProductSCModel.create({
       id: "2",
       name: "product 2",
       description: "product description 2",
-      salePrice: 20,
+      salesPrice: 20,
     })
   
     const productRepository = new ProductSCRepository();
@@ -41,12 +41,12 @@ describe("Produc SC repository tests", () => {
     expect(outputProducts[0].id.id).toBe(product1.id)
     expect(outputProducts[0].name).toBe(product1.name)
     expect(outputProducts[0].description).toBe(product1.description)
-    expect(outputProducts[0].salePrice).toBe(product1.salePrice)
+    expect(outputProducts[0].salesPrice).toBe(product1.salesPrice)
 
     expect(outputProducts[1].id.id).toBe(product2.id)
     expect(outputProducts[1].name).toBe(product2.name)
     expect(outputProducts[1].description).toBe(product2.description)
-    expect(outputProducts[1].salePrice).toBe(product2.salePrice)
+    expect(outputProducts[1].salesPrice).toBe(product2.salesPrice)
   });
 
 
@@ -56,13 +56,13 @@ describe("Produc SC repository tests", () => {
       id: "1",
       name: "product 1",
       description: "product description 1",
-      salePrice: 10,
+      salesPrice: 10,
     })
     const product2 = await ProductSCModel.create({
       id: "2",
       name: "product 2",
       description: "product description 2",
-      salePrice: 20,
+      salesPrice: 20,
     })
   
     const productRepository = new ProductSCRepository();
@@ -72,7 +72,7 @@ describe("Produc SC repository tests", () => {
     expect(outputProduct.id.id).toBe(product2.id)
     expect(outputProduct.name).toBe(product2.name)
     expect(outputProduct.description).toBe(product2.description)
-    expect(outputProduct.salePrice).toBe(product2.salePrice)
+    expect(outputProduct.salesPrice).toBe(product2.salesPrice)
     
   });
 })

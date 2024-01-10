@@ -25,7 +25,7 @@ describe("Store catalog facade tests", () => {
       id: "1",
       name: "product 1",
       description: "description 1",
-      salePrice: 100,
+      salesPrice: 100,
     });
 
     const storeCatalogFacade = StoreCatalogFacadeFactory.create();
@@ -36,7 +36,7 @@ describe("Store catalog facade tests", () => {
     expect(output.id).toBe(product.id);
     expect(output.name).toBe(product.name);
     expect(output.description).toBe(product.description);
-    expect(output.salePrice).toBe(product.salePrice);
+    expect(output.salesPrice).toBe(product.salesPrice);
   });
 
   it("should find all products", async () => {
@@ -44,13 +44,13 @@ describe("Store catalog facade tests", () => {
       id: "1",
       name: "product 1",
       description: "description 1",
-      salePrice: 100,
+      salesPrice: 100,
     });
     const product2 = await ProductSCModel.create({
       id: "2",
       name: "product 2",
       description: "description 2",
-      salePrice: 200,
+      salesPrice: 200,
     });
 
     const storeCatalogFacade = StoreCatalogFacadeFactory.create();
@@ -64,13 +64,13 @@ describe("Store catalog facade tests", () => {
     expect(outputProduct1.id).toBe(product1.id);
     expect(outputProduct1.name).toBe(product1.name);
     expect(outputProduct1.description).toBe(product1.description);
-    expect(outputProduct1.salePrice).toBe(product1.salePrice);
+    expect(outputProduct1.salesPrice).toBe(product1.salesPrice);
 
     const outputProduct2 = output.products[1];
     expect(outputProduct2.id).toBe(product2.id);
     expect(outputProduct2.name).toBe(product2.name);
     expect(outputProduct2.description).toBe(product2.description);
-    expect(outputProduct2.salePrice).toBe(product2.salePrice);
+    expect(outputProduct2.salesPrice).toBe(product2.salesPrice);
 
   });
 });

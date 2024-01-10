@@ -5,7 +5,7 @@ export interface FindStoreCatalogFacadeOutputDTO {
   id: string,
   name: string,
   description: string,
-  salePrice: number
+  salesPrice: number
 }
 
 export interface FindAllStoreCatalogFacadeOutputDTO {
