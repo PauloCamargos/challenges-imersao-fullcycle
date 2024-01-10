@@ -31,7 +31,7 @@ describe("ClientAdm facade unit test", () => {
       address: "Av. Chocolateland, 156"
     }
 
-    await clientAdmFacade.addClient(clientInput);
+    await clientAdmFacade.add(clientInput);
     const foundClient = await ClientModel.findOne({
       where: {
         id: clientInput.id
@@ -56,8 +56,8 @@ describe("ClientAdm facade unit test", () => {
       address: "Av. Chocolateland, 156"
     }
 
-    await clientAdmFacade.addClient(clientInput);
-    const foundClient = await clientAdmFacade.findClient({id: clientInput.id})
+    await clientAdmFacade.add(clientInput);
+    const foundClient = await clientAdmFacade.find({id: clientInput.id})
 
     expect(foundClient).toBeDefined();
     expect(foundClient.id).toBe(clientInput.id);
