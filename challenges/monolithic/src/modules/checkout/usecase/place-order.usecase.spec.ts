@@ -329,6 +329,19 @@ describe("PlaceOrderUseCase unit test", () => {
                 });
 
                 expect(mockInvoiceFacade.generate).toHaveBeenCalledTimes(1);
+                expect(mockInvoiceFacade.generate).toHaveBeenCalledWith({
+                    name: clientProps.name,
+                    document: clientProps.document,
+                    street: clientProps.street,
+                    number: clientProps.number,
+                    complement: clientProps.complement,
+                    city: clientProps.city,
+                    state: clientProps.state,
+                    zipCode: clientProps.zipCode,
+                    items: Object.values(products).map(
+                        p => ({ id: p.id.id, name: p.name, price: p.salesPrice })
+                    )
+                })
             });
 
         });
