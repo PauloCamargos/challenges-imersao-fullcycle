@@ -3,19 +3,25 @@ import ClientGateway from "../../gateway/client.gateway";
 import { FindClientInputDTO, FindClientOutputDTO } from "./find-client.usecase.dto";
 
 export default class FindClientUseCase implements UseCaseInterface {
-  private _repository: ClientGateway
+    private _repository: ClientGateway;
 
-  constructor(repository: ClientGateway) {
-    this._repository = repository
-  }
-
-  async execute(input: FindClientInputDTO): Promise<FindClientOutputDTO> {
-    const client = await this._repository.find(input.id)
-    return {
-      id: client.id.id,
-      name: client.name,
-      email: client.email,
-      address: client.address,
+    constructor(repository: ClientGateway) {
+        this._repository = repository;
     }
-  }
+
+    async execute(input: FindClientInputDTO): Promise<FindClientOutputDTO> {
+        const client = await this._repository.find(input.id);
+        return {
+            id: client.id.id,
+            name: client.name,
+            email: client.email,
+            document: client.document,
+            street: client.street,
+            number: client.number,
+            complement: client.complement,
+            city: client.city,
+            state: client.state,
+            zipCode: client.zipCode,
+        };
+    }
 }
