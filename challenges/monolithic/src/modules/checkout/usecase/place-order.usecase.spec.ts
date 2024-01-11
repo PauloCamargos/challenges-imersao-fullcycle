@@ -174,118 +174,163 @@ describe("PlaceOrderUseCase unit test", () => {
             expect(mockValidProducts).toHaveBeenCalledTimes(1);
         });
 
-        // describe("place an order", () => {
-        //     const clientProps = {
-        //         id: "1c",
-        //         name: "Client 0",
-        //         email: "client@user.com",
-        //         document: "000",
-        //         street: "some address",
-        //         number: "1",
-        //         complement: "",
-        //         city: "some city",
-        //         state: "some state",
-        //         zipCode: "000",
-        //     };
+        describe("place an order", () => {
+            const clientProps = {
+                id: "1c",
+                name: "Client 0",
+                email: "client@user.com",
+                document: "000",
+                street: "some address",
+                number: "1",
+                complement: "",
+                city: "some city",
+                state: "some state",
+                zipCode: "000",
+            };
 
-        //     const mockClientFacade = {
-        //         find: jest.fn().mockResolvedValue(clientProps),
-        //     };
+            const mockClientFacade = {
+                find: jest.fn().mockResolvedValue(clientProps),
+                add: jest.fn(),
+            };
 
-        //     const mockPaymentFacade = {
-        //         process: jest.fn(),
-        //     };
+            const mockPaymentFacade = {
+                process: jest.fn(),
+            };
 
-        //     const mockCheckoutRepo = {
-        //         addOrder: jest.fn(),
-        //     };
+            const mockCheckoutRepo = {
+                addOrder: jest.fn(),
+                findOder: jest.fn(),
+            };
 
-        //     const mockInvoiceFacade = {
-        //         create: jest.fn().mockResolvedValue({ id: "1i" })
-        //     };
+            const mockInvoiceFacade = {
+                generate: jest.fn().mockResolvedValue({ id: "1i" }),
+                find: jest.fn(),
+            };
 
-        //     const placeOrderUseCase = new PlaceOrderUseCase(
-        //         mockClientFacade,
-        //         null,
-        //         null,
-        //         mockCheckoutRepo,
-        //         mockInvoiceFacade,
-        //         mockPaymentFacade,
-        //     );
+            const placeOrderUseCase = new PlaceOrderUseCase(
+                mockClientFacade,
+                null,
+                null,
+                mockCheckoutRepo,
+                mockInvoiceFacade,
+                mockPaymentFacade,
+            );
 
-        //     const products = {
-        //         "1": new Product({
-        //             id: new Id("1"),
-        //             name: "product 1",
-        //             description: "product description 1",
-        //             salesPrice: 100,
-        //         }),
-        //         "2": new Product({
-        //             id: new Id("2"),
-        //             name: "product 2",
-        //             description: "product descriptio 2",
-        //             salesPrice: 100,
-        //         }),
-        //     };
+            const products = {
+                "1": new Product({
+                    id: new Id("1"),
+                    name: "product 1",
+                    description: "product description 1",
+                    salesPrice: 30,
+                }),
+                "2": new Product({
+                    id: new Id("2"),
+                    name: "product 2",
+                    description: "product description 2",
+                    salesPrice: 40,
+                }),
+            };
 
-        //     const mockValidateProducts = jest
-        //         //@ts-expect-error - spy on private method
-        //         .spyOn(placeOrderUseCase, "validateProducts")
-        //         // @ts-expect-error - spy on private method
-        //         .mockResolvedValue(null);
+            const mockValidateProducts = jest
+                //@ts-expect-error - spy on private method
+                .spyOn(placeOrderUseCase, "validateProducts")
+                // @ts-expect-error - spy on private method
+                .mockResolvedValue(null);
 
-        //     const mockGetProduct = jest
-        //         //@ts-expect-error - spy on private method
-        //         .spyOn(placeOrderUseCase, "getProduct")
-        //         // @ts-expect-error - spy on private method
-        //         .mockImplementation((productId: keyof typeof products) => {
-        //             return products[productId];
-        //         });
+            const mockGetProduct = jest
+                //@ts-expect-error - spy on private method
+                .spyOn(placeOrderUseCase, "getProduct")
+                // @ts-expect-error - spy on private method
+                .mockImplementation((productId: keyof typeof products) => {
+                    return products[productId];
+                });
 
-        //     it("should not be approved", async () => {
-        //         mockPaymentFacade.process = mockPaymentFacade.process.mockReturnValue({
-        //             transactionId: "it",
-        //             orderId: "1o",
-        //             amount: 100,
-        //             status: "error",
-        //             createAt: new Date(),
-        //             updatedAt: new Date()
-        //         });
+            it("should not be approved", async () => {
+                mockPaymentFacade.process = mockPaymentFacade.process.mockReturnValue({
+                    transactionId: "1t",
+                    orderId: "1o",
+                    amount: 70,
+                    status: "error",
+                    createAt: new Date(),
+                    updatedAt: new Date()
+                });
 
-        //         const input: PlaceOrderInputDto = {
-        //             clientId: "1c",
-        //             products: [{ productId: "1" }, { productId: "2" }],
-        //         };
+                const input: PlaceOrderInputDto = {
+                    clientId: "1c",
+                    products: [{ productId: "1" }, { productId: "2" }],
+                };
 
-        //         let output = await placeOrderUseCase.execute(input);
+                let output = await placeOrderUseCase.execute(input);
 
-        //         expect(output.invoiceId).toBeNull();
-        //         expect(output.total).toBe(70);
-        //         expect(output.products).toStrictEqual([
-        //             { product: "1" },
-        //             { product: "2" },
-        //         ]);
+                expect(output.invoiceId).toBeNull();
+                expect(output.total).toBe(70);
+                expect(output.products).toStrictEqual([
+                    { productId: "1" },
+                    { productId: "2" },
+                ]);
 
-        //         expect(mockClientFacade.find).toHaveBeenCalledTimes(1);
-        //         expect(mockClientFacade.find).toHaveBeenCalledWith({ id: "1c" });
+                expect(mockClientFacade.find).toHaveBeenCalledTimes(1);
+                expect(mockClientFacade.find).toHaveBeenCalledWith({ id: "1c" });
 
-        //         expect(mockValidateProducts).toHaveBeenCalledTimes(1);
-        //         expect(mockValidateProducts).toHaveBeenCalledWith(input);
+                expect(mockValidateProducts).toHaveBeenCalledTimes(1);
+                expect(mockValidateProducts).toHaveBeenCalledWith(input);
 
-        //         expect(mockGetProduct).toHaveBeenCalledTimes(2);
+                expect(mockGetProduct).toHaveBeenCalledTimes(2);
 
-        //         expect(mockCheckoutRepo.addOrder).toHaveBeenCalledTimes(1);
+                expect(mockCheckoutRepo.addOrder).toHaveBeenCalledTimes(0);
 
-        //         expect(mockPaymentFacade.process).toHaveBeenCalledTimes(1);
-        //         expect(mockPaymentFacade.process).toHaveBeenCalledWith({
-        //             orderId: output.id,
-        //             amount: output.total,
-        //         });
+                expect(mockPaymentFacade.process).toHaveBeenCalledTimes(1);
+                expect(mockPaymentFacade.process).toHaveBeenCalledWith({
+                    orderId: output.id,
+                    amount: output.total,
+                });
 
-        //         expect(mockInvoiceFacade.create).toHaveBeenCalledTimes(0);
+                expect(mockInvoiceFacade.generate).toHaveBeenCalledTimes(0);
+            });
 
-        //     });
-        // });
+            it("should be approved", async () => {
+                mockPaymentFacade.process = mockPaymentFacade.process.mockReturnValue({
+                    transactionId: "1t",
+                    orderId: "1o",
+                    amount: 70,
+                    status: "approved",
+                    createAt: new Date(),
+                    updatedAt: new Date()
+                });
 
+                const input: PlaceOrderInputDto = {
+                    clientId: "1c",
+                    products: [{ productId: "1" }, { productId: "2" }],
+                };
+
+                let output = await placeOrderUseCase.execute(input);
+
+                expect(output.invoiceId).toBe("1i");
+                expect(output.total).toBe(70);
+                expect(output.products).toStrictEqual([
+                    { productId: "1" },
+                    { productId: "2" },
+                ]);
+
+                expect(mockClientFacade.find).toHaveBeenCalledTimes(1);
+                expect(mockClientFacade.find).toHaveBeenCalledWith({ id: "1c" });
+
+                expect(mockValidateProducts).toHaveBeenCalledTimes(1);
+                expect(mockValidateProducts).toHaveBeenCalledWith(input);
+
+                expect(mockGetProduct).toHaveBeenCalledTimes(2);
+
+                expect(mockCheckoutRepo.addOrder).toHaveBeenCalledTimes(1);
+
+                expect(mockPaymentFacade.process).toHaveBeenCalledTimes(1);
+                expect(mockPaymentFacade.process).toHaveBeenCalledWith({
+                    orderId: output.id,
+                    amount: output.total,
+                });
+
+                expect(mockInvoiceFacade.generate).toHaveBeenCalledTimes(1);
+            });
+
+        });
     });
 });
